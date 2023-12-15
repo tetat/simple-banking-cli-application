@@ -56,7 +56,7 @@ class Register {
     }
 }
 
-// $reg = new Register();
-// echo $reg->register();
+$reg = new Register();
+echo $reg->register();
 
 ?>

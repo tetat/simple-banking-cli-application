@@ -4,10 +4,10 @@ require_once "../Model/Users.php";
 require_once "../Model/Transaction.php";
 
 class AddDeposit {
+    private Transaction $deposit;
+
     function __construct(string $email, float $amount) {
-        $this->email = $email;
-        $this->amount = $amount;
-        $this->Time = date("d/m/Y h:i:s");
+        $this->deposit = new Transaction($email, $amount);
     }
     
     private function balanceUpdate() {
@@ -18,8 +18,8 @@ class AddDeposit {
 
         if ($user_data) {
             foreach ($user_data as $user) {
-                if ($user->email === $this->email) {
-                    $user->balance += $this->amount;
+                if ($user->email === $this->deposit->email) {
+                    $user->balance += $this->deposit->amount;
                     $exist = true;
                 }
                 array_push($users, $user);
@@ -40,12 +40,12 @@ class AddDeposit {
         if ($success === "success.") {
             $deposit_data = unserialize(file_get_contents("../DB/AllDeposit.txt"));
 
-            $deposit = new Transaction($this->email, $this->amount);
+            // $deposit = new Transaction($this->email, $this->amount);
 
             if ($deposit_data) {
-                array_push($deposit_data, $deposit);
+                array_push($deposit_data, $this->deposit);
             } else {
-                $deposit_data = [$deposit];
+                $deposit_data = [$this->deposit];
             }
 
             file_put_contents("../DB/AllDeposit.txt", serialize($deposit_data));
@@ -57,7 +57,7 @@ class AddDeposit {
     }
 }
 
-// $depo = new AddDeposit("nishat@gmail.com", 25.5);
+// $depo = new AddDeposit("solim@gmail.com", 205.5);
 // echo $depo->depositSave();
 
 ?>

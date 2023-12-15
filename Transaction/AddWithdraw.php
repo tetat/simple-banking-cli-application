@@ -4,10 +4,10 @@ require_once "../Model/Users.php";
 require_once "../Model/Transaction.php";
 
 class AddWithdraw {
+    private Transaction $withdraw;
+
     function __construct(string $email, float $amount) {
-        $this->email = $email;
-        $this->amount = $amount;
-        $this->Time = date("d/m/Y h:i:s");
+        $this->withdraw = new Transaction($email, $amount);
     }
     
     private function balanceUpdate() {
@@ -19,8 +19,8 @@ class AddWithdraw {
 
         if ($user_data) {
             foreach ($user_data as $user) {
-                if ($user->email === $this->email) {
-                    if ($user->balance >= $this->amount) $user->balance -= $this->amount;
+                if ($user->email === $this->withdraw->email) {
+                    if ($user->balance >= $this->withdraw->amount) $user->balance -= $this->withdraw->amount;
                     else $sufficient_balance = false;
                     $exist = true;
                 }
@@ -44,12 +44,12 @@ class AddWithdraw {
         if ($success === "success.") {
             $withdraw_data = unserialize(file_get_contents("../DB/AllWithdraw.txt"));
 
-            $withdraw = new Transaction($this->email, $this->amount);
+            // $withdraw = new Transaction($this->email, $this->amount);
 
             if ($withdraw_data) {
-                array_push($withdraw_data, $withdraw);
+                array_push($withdraw_data, $this->withdraw);
             } else {
-                $withdraw_data = [$withdraw];
+                $withdraw_data = [$this->withdraw];
             }
 
             file_put_contents("../DB/AllWithdraw.txt", serialize($withdraw_data));
@@ -61,7 +61,7 @@ class AddWithdraw {
     }
 }
 
-// $withdraw = new AddWithdraw("nishat@gmail.com", 100);
+// $withdraw = new AddWithdraw("nishat@gmail.com", 2);
 // echo $withdraw->withdrawSave();
 
 ?>
