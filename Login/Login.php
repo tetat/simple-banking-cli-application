@@ -16,9 +16,7 @@ class Login {
 
     public function login() {
         
-        if (!$this->validEmail($this->email)) {
-            return "Enter valid email.";
-        }
+        if (!$this->validEmail($this->email)) return "Enter valid email.";
 
         $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
 
@@ -34,7 +32,5 @@ class Login {
     }
 }
 
-// $log = new Login("nishat@gmail.com", "abc");
-// echo $log->login();
 
 ?>

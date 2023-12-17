@@ -1,7 +1,7 @@
 <?php
 
-require_once "../Model/Users.php";
-require_once "../Model/Transaction.php";
+require_once __DIR__ . "/../Model/Users.php";
+require_once __DIR__ . "/../Model/Transaction.php";
 
 class AddWithdraw {
     private Transaction $withdraw;
@@ -11,7 +11,7 @@ class AddWithdraw {
     }
     
     private function balanceUpdate() {
-        $user_data = unserialize(file_get_contents("../DB/Users.txt"));
+        $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
         $users = [];
 
         $exist = false;
@@ -31,7 +31,7 @@ class AddWithdraw {
         if (!$sufficient_balance) return "insufficient balance.";
 
         if ($exist) {
-            file_put_contents("../DB/Users.txt", serialize($users));
+            file_put_contents(__DIR__ . "/../DB/Users.txt", serialize($users));
             return "success.";
         }
 
@@ -42,9 +42,7 @@ class AddWithdraw {
         $success = $this->balanceUpdate();
 
         if ($success === "success.") {
-            $withdraw_data = unserialize(file_get_contents("../DB/AllWithdraw.txt"));
-
-            // $withdraw = new Transaction($this->email, $this->amount);
+            $withdraw_data = unserialize(file_get_contents(__DIR__ . "/../DB/AllWithdraw.txt"));
 
             if ($withdraw_data) {
                 array_push($withdraw_data, $this->withdraw);
@@ -52,7 +50,7 @@ class AddWithdraw {
                 $withdraw_data = [$this->withdraw];
             }
 
-            file_put_contents("../DB/AllWithdraw.txt", serialize($withdraw_data));
+            file_put_contents(__DIR__ . "/../DB/AllWithdraw.txt", serialize($withdraw_data));
 
             return "success.";
         }
@@ -61,7 +59,5 @@ class AddWithdraw {
     }
 }
 
-// $withdraw = new AddWithdraw("nishat@gmail.com", 2);
-// echo $withdraw->withdrawSave();
 
 ?>

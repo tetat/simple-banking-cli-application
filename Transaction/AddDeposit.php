@@ -1,7 +1,7 @@
 <?php
 
-require_once "../Model/Users.php";
-require_once "../Model/Transaction.php";
+require_once __DIR__ . "/../Model/Users.php";
+require_once __DIR__ . "/../Model/Transaction.php";
 
 class AddDeposit {
     private Transaction $deposit;
@@ -11,7 +11,7 @@ class AddDeposit {
     }
     
     private function balanceUpdate() {
-        $user_data = unserialize(file_get_contents("../DB/Users.txt"));
+        $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
         $users = [];
 
         $exist = false;
@@ -27,7 +27,7 @@ class AddDeposit {
         }
 
         if ($exist) {
-            file_put_contents("../DB/Users.txt", serialize($users));
+            file_put_contents(__DIR__ . "/../DB/Users.txt", serialize($users));
             return "success.";
         }
 
@@ -38,7 +38,7 @@ class AddDeposit {
         $success = $this->balanceUpdate();
 
         if ($success === "success.") {
-            $deposit_data = unserialize(file_get_contents("../DB/AllDeposit.txt"));
+            $deposit_data = unserialize(file_get_contents(__DIR__ . "/../DB/AllDeposit.txt"));
 
             if ($deposit_data) {
                 array_push($deposit_data, $this->deposit);
@@ -46,7 +46,7 @@ class AddDeposit {
                 $deposit_data = [$this->deposit];
             }
 
-            file_put_contents("../DB/AllDeposit.txt", serialize($deposit_data));
+            file_put_contents(__DIR__ . "/../DB/AllDeposit.txt", serialize($deposit_data));
 
             return "success.";
         }
@@ -55,7 +55,5 @@ class AddDeposit {
     }
 }
 
-// $depo = new AddDeposit("solim@gmail.com", 205.5);
-// echo $depo->depositSave();
 
 ?>

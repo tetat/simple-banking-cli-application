@@ -1,9 +1,13 @@
 <?php
 
-require_once "../Model/Users.php";
-require_once "../Model/Transfer.php";
+require_once __DIR__ . "/../Model/Users.php";
+require_once __DIR__ . "/../Model/Transfer.php";
+
+require_once __DIR__ . "/../Common/ValidEmail.php";
 
 class AddTransfer {
+    use ValidEmail;
+
     private Transfer $transfer;
 
     function __construct(string $sender, string $reciever, float $amount) {
@@ -11,7 +15,7 @@ class AddTransfer {
     }
 
     private function balanceUpdate() {
-        $user_data = unserialize(file_get_contents("../DB/Users.txt"));
+        $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
         $users = [];
 
         $sender_exist = false;
@@ -36,7 +40,7 @@ class AddTransfer {
         if (!$sufficient_balance) return "insufficient balance.";
 
         if ($sender_exist && $reciever_exist) {
-            file_put_contents("../DB/Users.txt", serialize($users));
+            file_put_contents(__DIR__ . "/../DB/Users.txt", serialize($users));
             return "success.";
         }
 
@@ -45,14 +49,16 @@ class AddTransfer {
 
 
     public function transferSave() {
-        if ($this-transfer->sender_email === $this->transfer->reciever_email) {
+        if (!$this->validEmail($this->transfer->reciever_email)) return "Enter valid email.";
+
+        if ($this->transfer->sender_email === $this->transfer->reciever_email) {
             return "transfer failed: own transfer not allowed.";
         }
         
         $success = $this->balanceUpdate();
 
         if ($success === "success.") {
-            $transfer_data = unserialize(file_get_contents("../DB/AllTransfer.txt"));
+            $transfer_data = unserialize(file_get_contents(__DIR__ . "/../DB/AllTransfer.txt"));
 
             if ($transfer_data) {
                 array_push($transfer_data, $this->transfer);
@@ -60,7 +66,7 @@ class AddTransfer {
                 $transfer_data = [$this->transfer];
             }
 
-            file_put_contents("../DB/AllTransfer.txt", serialize($transfer_data));
+            file_put_contents(__DIR__ . "/../DB/AllTransfer.txt", serialize($transfer_data));
 
             return "success.";
         }
@@ -69,7 +75,5 @@ class AddTransfer {
     }
 }
 
-// $trans = new AddTransfer("solim@gmail.com", "nishat@gmail.com", 23);
-// $trans->transferSave();
 
 ?>

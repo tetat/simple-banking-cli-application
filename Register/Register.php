@@ -4,7 +4,8 @@ require_once __DIR__ . "/../Model/Users.php";
 require_once __DIR__ . "/../Common/ValidEmail.php";
 
 class Register {
-    use ValidEmail; // use traits to get common methods
+    // use traits to get common methods
+    use ValidEmail;
 
     private string $name;
     private string $email;
@@ -19,9 +20,7 @@ class Register {
     }
 
     public function register() {
-        if (!$this->validEmail($this->email)) {
-            return "Enter valid email.";
-        }
+        if (!$this->validEmail($this->email)) return "Enter valid email.";
 
         $users = [];
         $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));

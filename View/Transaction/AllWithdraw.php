@@ -1,12 +1,12 @@
 <?php
 
-require_once "../../Model/Transaction.php";
+require_once __DIR__ . "/../../Model/Transaction.php";
 
 class AllWithdraw {
     public function viewAllWithdraw() {
-        $allWithdraw = unserialize(file_get_contents("../../DB/AllWithdraw.txt"));
+        $allWithdraw = unserialize(file_get_contents(__DIR__ . "/../../DB/AllWithdraw.txt"));
 
-        echo "All Withdraw\n...........\n";
+        echo "\nAll Withdraw\n...........\n";
         foreach ($allWithdraw as $withdraw) {
             echo "Email: {$withdraw->email} | ";
             echo "Amount: {$withdraw->amount} | ";
@@ -15,9 +15,9 @@ class AllWithdraw {
     }
 
     public function viewWithdrawByEmail(string $email) {
-        $allWithdraw = unserialize(file_get_contents("../../DB/AllWithdraw.txt"));
+        $allWithdraw = unserialize(file_get_contents(__DIR__ . "/../../DB/AllWithdraw.txt"));
 
-        echo "All Withdraw\n...........\n";
+        echo "\nAll Withdraw\n...........\n";
         foreach ($allWithdraw as $withdraw) {
             if ($email === $withdraw->email) {
                 echo "Email: {$withdraw->email} | ";
