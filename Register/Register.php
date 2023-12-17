@@ -1,36 +1,30 @@
 <?php
 
-require_once "../Model/Users.php";
+require_once __DIR__ . "/../Model/Users.php";
+require_once __DIR__ . "/../Common/ValidEmail.php";
 
 class Register {
+    use ValidEmail; // use traits to get common methods
+
     private string $name;
     private string $email;
     private string $password;
     private string $role;
 
-    private function getInput() {
-        $this->name = (string) readline("Enter your name: ");
-        $this->email = (string) readline("Enter your email: ");
-        $this->password = (string) readline("Enter your password: ");
-    }
-
-    private function validEmail() {
-        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) return false;
-
-        return true;
-    }
-
-    public function register(string $role = "customer") {
+    function __construct(string $name, string $email, string $password, string $role = "customer") {
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
         $this->role = $role;
+    }
 
-        $this->getInput();
-
-        if (!$this->validEmail()) {
+    public function register() {
+        if (!$this->validEmail($this->email)) {
             return "Enter valid email.";
         }
 
         $users = [];
-        $user_data = unserialize(file_get_contents("../DB/Users.txt"));
+        $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
 
         $exist = false;
 
@@ -50,13 +44,13 @@ class Register {
         
         array_push($users, $user);
 
-        file_put_contents("../DB/Users.txt", serialize($users));
+        file_put_contents(__DIR__ . "/../DB/Users.txt", serialize($users));
 
         return $this->role;
     }
 }
 
-$reg = new Register();
-echo $reg->register();
+// $reg = new Register();
+// echo $reg->register();
 
 ?>

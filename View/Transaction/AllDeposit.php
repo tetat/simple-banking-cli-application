@@ -3,6 +3,7 @@
 require_once "../../Model/Transaction.php";
 
 class AllDeposit {
+
     public function viewAllDeposit() {
         $allDeposit = unserialize(file_get_contents("../../DB/AllDeposit.txt"));
 

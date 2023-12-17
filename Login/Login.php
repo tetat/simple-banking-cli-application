@@ -1,30 +1,26 @@
 <?php
 
-require_once "../Model/Users.php";
+require_once __DIR__ . "/../Model/Users.php";
+require_once __DIR__ . "/../Common/ValidEmail.php";
 
 class Login {
+    use ValidEmail; // use traits to get common methods
+
     private string $email;
     private string $password;
 
-    private function getInput() {
-        $this->email = (string) readline("Enter your email: ");
-        $this->password = (string) readline("Enter your password: ");
-    }
-
-    private function validEmail() {
-        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) return false;
-
-        return true;
+    function __construct(string $email, string $password) {
+        $this->email = $email;
+        $this->password = $password;
     }
 
     public function login() {
-        $this->getInput();
         
-        if (!$this->validEmail()) {
+        if (!$this->validEmail($this->email)) {
             return "Enter valid email.";
         }
 
-        $user_data = unserialize(file_get_contents("../DB/Users.txt"));
+        $user_data = unserialize(file_get_contents(__DIR__ . "/../DB/Users.txt"));
 
         if ($user_data) {
             foreach ($user_data as $user) {
@@ -38,7 +34,7 @@ class Login {
     }
 }
 
-// $log = new Login();
+// $log = new Login("nishat@gmail.com", "abc");
 // echo $log->login();
 
 ?>

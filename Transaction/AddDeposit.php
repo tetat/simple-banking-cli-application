@@ -40,8 +40,6 @@ class AddDeposit {
         if ($success === "success.") {
             $deposit_data = unserialize(file_get_contents("../DB/AllDeposit.txt"));
 
-            // $deposit = new Transaction($this->email, $this->amount);
-
             if ($deposit_data) {
                 array_push($deposit_data, $this->deposit);
             } else {

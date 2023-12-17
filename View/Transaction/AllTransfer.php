@@ -20,7 +20,7 @@ class AllTransfer {
 
         echo "All Transfer\n...........\n";
         foreach ($allTransfer as $transfer) {
-            if ($email === $transfer->sender_email) {
+            if ($email === $transfer->sender_email || $email === $transfer->reciever_email) {
                 echo "Sender: {$transfer->sender_email} | ";
                 echo "Reciever: {$transfer->reciever_email} | ";
                 echo "Amount: {$transfer->amount} | ";

@@ -45,6 +45,10 @@ class AddTransfer {
 
 
     public function transferSave() {
+        if ($this-transfer->sender_email === $this->transfer->reciever_email) {
+            return "transfer failed: own transfer not allowed.";
+        }
+        
         $success = $this->balanceUpdate();
 
         if ($success === "success.") {
@@ -61,7 +65,7 @@ class AddTransfer {
             return "success.";
         }
 
-        return "withdraw failed: {$success}";
+        return "transfer failed: {$success}";
     }
 }
 

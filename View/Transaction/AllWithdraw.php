@@ -15,7 +15,7 @@ class AllWithdraw {
     }
 
     public function viewWithdrawByEmail(string $email) {
-        $allWithdraw = unserialize(file_get_contents("../DB/AllWithdraw.txt"));
+        $allWithdraw = unserialize(file_get_contents("../../DB/AllWithdraw.txt"));
 
         echo "All Withdraw\n...........\n";
         foreach ($allWithdraw as $withdraw) {

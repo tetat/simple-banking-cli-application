@@ -2,7 +2,7 @@
 
 require_once "../../Model/Users.php";
 
-class ViewUser {
+class ViewUsers {
     public function viewAllUser() {
         $users = [];
         $user_data = unserialize(file_get_contents("../../DB/Users.txt"));
@@ -18,7 +18,7 @@ class ViewUser {
     }
 }
 
-$view = new ViewUser();
+$view = new ViewUsers();
 $view->viewAllUser();
 
 ?>

@@ -5,20 +5,20 @@ require_once "./AllWithdraw.php";
 require_once "./AllTransfer.php";
 
 class ViewTransaction {
-    private string $email;
-
-    function __construct(string $email) {
-        $this->email = $email;
-    }
-
     public function viewAllTransaction() {
         (new AllDeposit())->viewAllDeposit();
         (new AllWithdraw())->viewAllWithdraw();
         (new AllTransfer())->viewAllTransfer();
     }
+
+    public function viewTransactionByEmail(string $email) {
+        (new AllDeposit())->viewDepositByEmail($email);
+        (new AllWithdraw())->viewWithdrawByEmail($email);
+        (new AllTransfer())->viewTransferByEmail($email);
+    }
 }
 
-$view = new ViewTransaction("nishat@gmail.com");
-$view->viewAllTransaction();
+$view = new ViewTransaction();
+$view->viewTransactionByEmail("solim@gmail.com");
 
 ?>
