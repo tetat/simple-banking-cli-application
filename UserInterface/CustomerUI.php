@@ -1,5 +1,7 @@
 <?php
 
+namespace UserInterface;
+
 require_once __DIR__ . "/../View/Transaction/ViewTransaction.php";
 require_once __DIR__ . "/../View/Money/ViewBalance.php";
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace UserInterface;
+
 require_once __DIR__ . "/../Register/Register.php";
 
 use Dotenv\Dotenv as Dotenv;

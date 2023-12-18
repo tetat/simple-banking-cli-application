@@ -1,5 +1,7 @@
 <?php
 
+namespace UserInterface;
+
 require_once __DIR__ . "/../Login/Login.php";
 
 class LoginUI {
