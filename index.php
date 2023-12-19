@@ -1,14 +1,14 @@
 <?php
 
-use UserInterface\LoginUI;
-use UserInterface\RegisterUI;
-use UserInterface\AdminUI;
-use UserInterface\CustomerUI;
+// use UserInterface\LoginUI;
+// use UserInterface\RegisterUI;
+// use UserInterface\AdminUI;
+// use UserInterface\CustomerUI;
 
-// require_once __DIR__ . "/UserInterface/LoginUI.php";
-// require_once __DIR__ . "/UserInterface/RegisterUI.php";
-// require_once __DIR__ . "/UserInterface/AdminUI.php";
-// require_once __DIR__ . "/UserInterface/CustomerUI.php";
+require_once __DIR__ . "/UserInterface/LoginUI.php";
+require_once __DIR__ . "/UserInterface/RegisterUI.php";
+require_once __DIR__ . "/UserInterface/AdminUI.php";
+require_once __DIR__ . "/UserInterface/CustomerUI.php";
 
 require_once __DIR__ . "/vendor/autoload.php";
 
