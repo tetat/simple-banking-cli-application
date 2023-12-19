@@ -1,6 +1,6 @@
 # Simple Banking Application
 
-Welcome to simple banking application with command liine interface. It allows administrators and customers to create account and manage their transactions.
+Welcome to simple banking application with command line interface. It allows administrators and customers to create account and manage their transactions.
 
 ## Functionalities
 
