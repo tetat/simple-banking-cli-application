@@ -1,6 +1,6 @@
 <?php
 
-namespace UserInterface;
+// namespace UserInterface;
 
 require_once __DIR__ . "/../Register/Register.php";
 
